@@ -8,7 +8,8 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/Notfound";
 import Navbar from "../components/Navbar";
 import { SelectionProvider } from "../Context/SeletionContext";
-
+import Planets from "./pages/Planets";
+import PlanetDetails from "./pages/PlanetDetails";
 function App() {
   return (
     <BrowserRouter>
@@ -27,8 +28,9 @@ function App() {
         <Route path="/selection" element={<Selection />} />
 
         <Route path="/contact" element={<Contact />} />
-
+        <Route path ="/planets" element={<Planets />}  />
         <Route path="*" element={<NotFound />} />
+        <Route path="/planets/:id" element={<PlanetDetails />} />
         </Routes>
       </SelectionProvider>
     </BrowserRouter>

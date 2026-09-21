@@ -12,8 +12,25 @@ export type Character = {
   homeworld: string;
 };
 
+export type Planet = {
+  id: number;
+  name: string;
+  rotation_period: string;
+  orbital_period: string;
+  diameter: string;
+  climate: string;
+  gravity: string;
+  terrain: string;
+  surface_water: string;
+  population: string;
+};
+
 type CharacterResponse = {
   results: Character[];
+};
+
+type PlanetResponse = {
+  results: Planet[];
 };
 
 function withId(character: Omit<Character, "id"> & { url?: string }): Character {
@@ -21,7 +38,17 @@ function withId(character: Omit<Character, "id"> & { url?: string }): Character 
   return { ...character, id };
 }
 
-type ApiState<T> = {
+function withPlanetId(planet: Omit<Planet, "id"> & { url?: string }): Planet {
+  const id = Number(planet.url?.match(/\/(\d+)\/?$/)?.[1]);
+  return { ...planet, id };
+}
+
+type ApiStatePlanet<T> = {
+  dataPlanet: T | null;
+  loadingPlanet: boolean;
+  errorPlanet: string | null;
+};
+type ApiStateCharacter<T> = {
   data: T | null;
   loading: boolean;
   error: string | null;
@@ -35,8 +62,8 @@ async function request<T>(url: string, signal: AbortSignal): Promise<T> {
   return response.json() as Promise<T>;
 }
 
-export function useCharacters(): ApiState<Character[]> {
-  const [state, setState] = useState<ApiState<Character[]>>({
+export function useCharacters(): ApiStateCharacter<Character[]> {
+  const [state, setState] = useState<ApiStateCharacter<Character[]>>({
     data: null,
     loading: true,
     error: null,
@@ -63,8 +90,8 @@ export function useCharacters(): ApiState<Character[]> {
   return state;
 }
 
-export function useCharacter(id: string | undefined): ApiState<Character> {
-  const [state, setState] = useState<ApiState<Character>>({
+export function useCharacter(id: string | undefined): ApiStateCharacter<Character> {
+  const [state, setState] = useState<ApiStateCharacter<Character>>({
     data: null,
     loading: true,
     error: null,
@@ -92,5 +119,63 @@ export function useCharacter(id: string | undefined): ApiState<Character> {
     return () => controller.abort();
   }, [id]);
 
+  return state;
+}
+
+export function usePlanet(id: string | undefined): ApiStatePlanet<Planet> {
+  const [state, setState] = useState<ApiStatePlanet<Planet>>({
+    dataPlanet: null,
+    loadingPlanet: true,
+    errorPlanet: null,
+  });
+
+  useEffect(() => {
+    const controller = new AbortController();
+    if (!id) {
+      setState({ dataPlanet: null, loadingPlanet: false, errorPlanet: "Planète introuvable." });
+      return () => controller.abort();
+    }
+
+    setState({ dataPlanet: null, loadingPlanet: true, errorPlanet: null });
+    request<Planet>(`${API_URL}/planets/${id}/`, controller.signal)
+      .then((data) => setState({ dataPlanet: withPlanetId(data), loadingPlanet: false, errorPlanet: null }))
+      .catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        setState({
+          dataPlanet: null,
+          loadingPlanet: false,
+          errorPlanet: error instanceof Error ? error.message : "Impossible de charger la planète Star Wars.",
+        });
+      });
+
+    return () => controller.abort();
+  }, [id]);
+
+  return state;
+}
+export function usePlanets(): ApiStatePlanet<Planet[]> {
+  const [state, setState] = useState<ApiStatePlanet<Planet[]>>({
+    dataPlanet: null,
+    loadingPlanet: true,
+    errorPlanet: null,
+  });
+
+  useEffect(() => {
+    const controller = new AbortController();
+    setState({ dataPlanet: null, loadingPlanet: true, errorPlanet: null });
+
+    request<PlanetResponse>(`${API_URL}/planets/`, controller.signal)
+      .then((data) => setState({ dataPlanet: data.results.map(withPlanetId), loadingPlanet: false, errorPlanet: null }))
+      .catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        setState({
+          dataPlanet: null,
+          loadingPlanet: false,
+          errorPlanet: error instanceof Error ? error.message : "Impossible de charger les planètes Star Wars.",
+        });
+      });
+
+    return () => controller.abort();
+  }, []);
   return state;
 }

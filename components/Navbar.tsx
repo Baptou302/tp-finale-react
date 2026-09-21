@@ -8,6 +8,7 @@ export default function Navbar() {
       <Link to="/">Accueil</Link> {" | "}
       <Link to="/personnages">Personnages</Link> {" | "}
       <Link to="/selection">Sélection ({selected.length})</Link> {" | "}
+      <Link to="/planets">Planet </Link> {" | "}
       <Link to="/contact">Contact</Link>
     </nav>
   );
