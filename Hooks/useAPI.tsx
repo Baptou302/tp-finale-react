@@ -26,7 +26,7 @@ export type Planet = {
 };
 
 type CharacterResponse = {
-  results: Character[];
+  results: Array<Omit<Character, "id"> & { url?: string }>;
 };
 
 type PlanetResponse = {
@@ -62,7 +62,7 @@ async function request<T>(url: string, signal: AbortSignal): Promise<T> {
   return response.json() as Promise<T>;
 }
 
-export function useCharacters(): ApiStateCharacter<Character[]> {
+export function useCharacters(search = ""): ApiStateCharacter<Character[]> {
   const [state, setState] = useState<ApiStateCharacter<Character[]>>({
     data: null,
     loading: true,
@@ -73,7 +73,8 @@ export function useCharacters(): ApiStateCharacter<Character[]> {
     const controller = new AbortController();
     setState({ data: null, loading: true, error: null });
 
-    request<CharacterResponse>(`${API_URL}/people/`, controller.signal)
+    const query = search.trim() ? `?search=${encodeURIComponent(search.trim())}` : "";
+    request<CharacterResponse>(`${API_URL}/people/${query}`, controller.signal)
       .then((data) => setState({ data: data.results.map(withId), loading: false, error: null }))
       .catch((error: unknown) => {
         if (error instanceof DOMException && error.name === "AbortError") return;
@@ -85,7 +86,7 @@ export function useCharacters(): ApiStateCharacter<Character[]> {
       });
 
     return () => controller.abort();
-  }, []);
+  }, [search]);
 
   return state;
 }

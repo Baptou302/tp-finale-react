@@ -11,6 +11,22 @@
   &:hover {
     border-color: var(--accent-border);
   }
+
+  #character-search {
+    width: min(420px, 90%);
+    margin: 0 auto 24px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-h);
+    background: var(--bg);
+    font: inherit;
+  }
+
+  #character-search:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
   &:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
