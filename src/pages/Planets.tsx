@@ -9,7 +9,7 @@ export default function Planets() {
   return (
     <div>
       <h2>Planetes Star Wars</h2>
-      <section aria-label="Liste des planètes">
+      <section className="cards-grid" aria-label="Liste des planètes">
         {dataPlanet?.map((planet) => (
           <article key={planet.id}>
             <Link to={`/planets/${planet.id}`}>{planet.name}</Link>

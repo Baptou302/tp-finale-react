@@ -10,13 +10,8 @@ export default function Contact() {
   }
 
   return (
-<<<<<<< HEAD
-    <div>
-      <h2>Welcome to the Contact Page</h2>
-    </div>
-=======
     <main className="contact">
-      <h1>Contact</h1>
+      <h2>Contact</h2>
       <form className="contact-form" onSubmit={handleSubmit}>
         <div className="form-field">
           <label htmlFor="name">Nom</label>
@@ -42,6 +37,5 @@ export default function Contact() {
         {sent && <p role="status">Votre message a bien été envoyé.</p>}
       </form>
     </main>
->>>>>>> c488d3aa1c7047251b0c79ff1d32c8120ea337d7
   );
 }

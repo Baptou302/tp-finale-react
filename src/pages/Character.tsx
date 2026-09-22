@@ -27,9 +27,6 @@ export default function Character() {
 
   return (
     <div>
-<<<<<<< HEAD
-      <h2>Personnages Star Wars</h2>
-=======
       <h1>Personnages Star Wars</h1>
       <label htmlFor="character-search">Rechercher un personnage</label>
       <input
@@ -44,8 +41,7 @@ export default function Character() {
         <option value="all">Tous les genres</option>
         {genders.map((value) => <option key={value} value={value}>{value}</option>)}
       </select>
->>>>>>> c488d3aa1c7047251b0c79ff1d32c8120ea337d7
-      <section aria-label="Liste des personnages">
+      <section className="cards-grid" aria-label="Liste des personnages">
         {filteredCharacters.length ? (
           filteredCharacters.map((character) => <PersonCard key={character.id} character={character} />)
         ) : (

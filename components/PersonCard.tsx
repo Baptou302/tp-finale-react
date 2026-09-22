@@ -8,7 +8,7 @@ export default function PersonCard({ character }: { character: Character }) {
 
   return (
     <article>
-      <h2>{character.name}</h2>
+      <h3>{character.name}</h3>
       <p>Genre : {character.gender}</p>
       <p>Taille : {character.height} cm</p>
       <Link to={`/personnages/${character.id}`}>Voir le détail</Link>{" "}

@@ -17,20 +17,17 @@
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
   color-scheme: light dark;
-  color: var(--text);
+  color: var(--accent);
   background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-
 button{
   size: 100px;
+  color:var(--text-h);
+  background-color:var(--text);
+  border: none; 
+  border-radius: 10px;   
 }
+
 #root {
   width: 100%;
   max-width: none;
@@ -43,8 +40,11 @@ button{
 }
 
 body {
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  background-color:var(--text-h);
   margin: 0;
   padding: 0;
+  
 }
 
 .navbar {
@@ -62,11 +62,39 @@ body {
   text-align: right;
 }
 h2 {
-  font-size: 24px;
+  font-size: 60px;
   line-height: 118%;
   letter-spacing: -0.24px;
   margin: 0 0 8px;
 }
-p {
-  margin: 0;
+h3{
+  font-size: 30px;
+}
+#character-search {
+  border:none;
+  margin:12px;
+  font-size:24px;
+
+}
+#gender-filter{
+  border:none;
+  margin:12px;
+  font-size:24px;
+}
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.cards-grid article {
+  min-width: 0;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 1px solid var(--border);
+  border-radius: 10px;
 }
