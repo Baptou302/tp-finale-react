@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import Home from "./pages/Home";
 import Character from "./pages/Character";
 import CharacterDetail from "./pages/CharacterDetail";
@@ -12,6 +11,7 @@ import Planets from "./pages/Planets";
 import PlanetDetails from "./pages/PlanetDetails";
 function App() {
   return (
+    
     <BrowserRouter>
       <SelectionProvider>
         <Navbar />

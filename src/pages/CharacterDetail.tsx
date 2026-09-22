@@ -13,7 +13,7 @@ export default function CharacterDetail() {
   return (
     <div>
       <Link to="/personnages">Retour aux personnages</Link>
-      <h1>{data.name}</h1>
+      <h2>{data.name}</h2>
       <p>Genre : {data.gender}</p>
       <p>Taille : {data.height} cm</p>
       <p>Poids : {data.mass} kg</p>

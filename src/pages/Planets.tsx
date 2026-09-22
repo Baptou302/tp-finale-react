@@ -8,7 +8,7 @@ export default function Planets() {
 
   return (
     <div>
-      <h1>Planetes Star Wars</h1>
+      <h2>Planetes Star Wars</h2>
       <section aria-label="Liste des planètes">
         {dataPlanet?.map((planet) => (
           <article key={planet.id}>

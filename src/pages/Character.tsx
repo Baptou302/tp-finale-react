@@ -9,7 +9,7 @@ export default function Character() {
 
   return (
     <div>
-      <h1>Personnages Star Wars</h1>
+      <h2>Personnages Star Wars</h2>
       <section aria-label="Liste des personnages">
         {data?.map((character) => <PersonCard key={character.id} character={character} />)}
       </section>
