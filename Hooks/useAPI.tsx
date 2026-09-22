@@ -8,6 +8,7 @@ export type Character = {
   height: string;
   mass: string;
   hair_color: string;
+  eye_color: string;
   gender: string;
   homeworld: string;
 };
@@ -26,7 +27,7 @@ export type Planet = {
 };
 
 type CharacterResponse = {
-  results: Character[];
+  results: Array<Omit<Character, "id"> & { url?: string }>;
 };
 
 type PlanetResponse = {
